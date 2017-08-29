@@ -37,6 +37,9 @@ Condtitionally display a piece of content if EU VAT is *not* applicable in the c
 #### Attributes:
 - `country` (optional, default by user's IP address): Override the country for which to check (two-letter [ISO-3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code)
 
+## Compatibility
+
+This plugin was tested with WordPress 4.8.x and PHP 7.1 & 7.2
 
 ## License
 
