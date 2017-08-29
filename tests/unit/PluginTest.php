@@ -1,6 +1,6 @@
 <?php
 
-namespace SehrGut\WpPricesWithEuVat;
+namespace SehrGut\WpEuVatHelpers;
 
 use Mockery;
 use Mpociot\VatCalculator\VatCalculator;
@@ -12,6 +12,10 @@ function add_shortcode(...$args) {
 
 function shortcode_atts(...$args) {
     return PluginTest::$functions->shortcode_atts(...$args);
+}
+
+function do_shortcode(...$args) {
+    return PluginTest::$functions->do_shortcode(...$args);
 }
 
 class PluginTest extends TestCase
@@ -97,32 +101,29 @@ class PluginTest extends TestCase
         $this->assertEquals('17,85 €', $result);
     }
 
-    public function test_if_taxable_displays_body_vat_applicable()
+    public function test_if_taxable_displays_body_if_vat_applicable()
     {
         // Setup mocks
         $this->vat_calculator
             ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(true);
-        self::$functions->shouldReceive('shortcode_atts')
-            ->andReturn([
-                'country' => 'something'
-            ]);
+        self::$functions
+            ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something'])
+            ->shouldReceive('do_shortcode')->andReturn('display me');
 
         // Perform the actual test
         $result = $this->plugin->ifTaxableShortcode([], 'display me');
         $this->assertEquals('display me', $result);
     }
 
-    public function test_if_taxable_swallows_body_vat_not_applicable()
+    public function test_if_taxable_swallows_body_if_vat_not_applicable()
     {
         // Setup mocks
         $this->vat_calculator
             ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(false);
-        self::$functions->shouldReceive('shortcode_atts')
-            ->andReturn([
-                'country' => 'something'
-            ]);
+        self::$functions
+            ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something']);
 
         // Perform the actual test
         $result = $this->plugin->ifTaxableShortcode([], 'dont display me');
@@ -135,10 +136,9 @@ class PluginTest extends TestCase
         $this->vat_calculator
             ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(false);
-        self::$functions->shouldReceive('shortcode_atts')
-            ->andReturn([
-                'country' => 'something'
-            ]);
+        self::$functions
+            ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something'])
+            ->shouldReceive('do_shortcode')->andReturn('display me');
 
         // Perform the actual test
         $result = $this->plugin->unlessTaxableShortcode([], 'display me');
@@ -151,10 +151,8 @@ class PluginTest extends TestCase
         $this->vat_calculator
             ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(true);
-        self::$functions->shouldReceive('shortcode_atts')
-            ->andReturn([
-                'country' => 'something'
-            ]);
+        self::$functions
+            ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something']);
 
         // Perform the actual test
         $result = $this->plugin->unlessTaxableShortcode([], 'dont display me');

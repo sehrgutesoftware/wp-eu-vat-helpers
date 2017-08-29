@@ -1,5 +1,5 @@
-# Prices with EU VAT
-> A WordPress helper shortcode to display prices including applicable VAT rate for the user's location (based on IP address)
+# WordPress EU VAT Helpers
+> WordPress helper shortcodes to display prices including applicable VAT rate for the user's location (based on IP address)
 
 This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calculator](https://github.com/mpociot/vat-calculator) library. Use at your own risk!
 

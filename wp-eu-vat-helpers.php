@@ -1,18 +1,18 @@
 <?php
 /*
-Plugin Name:  Prices with EU VAT
-Plugin URI:   https://github.com/sehrgutesoftware/wp-prices-with-eu-vat
-Description:  A WordPress helper shortcode to display prices including applicable VAT rate for the user's location (based on IP address)
+Plugin Name:  WordPress EU VAT Helpers
+Plugin URI:   https://github.com/sehrgutesoftware/wp-eu-vat-helpers
+Description:  WordPress helper shortcodes to display prices including applicable VAT rate for the user's location (based on IP address)
 Version:      1.0.0
 Author:       sehrgute.software
 Author URI:   https://sehrgute.software/
 License:      MIT License
 */
 
-namespace SehrGut\WpPricesWithEuVat;
+namespace SehrGut\WpEuVatHelpers;
 
 use Mpociot\VatCalculator\VatCalculator;
-use SehrGut\WpPricesWithEuVat\Plugin;
+use SehrGut\WpEuVatHelpers\Plugin;
 
 /**
  * Require Composer autoloader.

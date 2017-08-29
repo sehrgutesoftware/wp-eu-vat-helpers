@@ -1,6 +1,6 @@
 <?php
 
-namespace SehrGut\WpPricesWithEuVat;
+namespace SehrGut\WpEuVatHelpers;
 
 use NumberFormatter;
 use Mpociot\VatCalculator\VatCalculator;
