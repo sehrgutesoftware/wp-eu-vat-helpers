@@ -21,6 +21,9 @@ Display the EU VAT rate applicabe in the current user's country in percent.
 #### Attributes:
 - `country` (optional, default by user's IP address): Override the country whose VAT rate to display (two-letter [ISO-3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code)
 
+### `[ip_country]`
+Display the current user's country based on their IP address.
+
 ### `[if_taxable]Echo something[/if_taxable]`
 Condtitionally display a piece of content if EU VAT is applicable in the current user's country.
 #### Attributes:

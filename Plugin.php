@@ -35,6 +35,7 @@ class Plugin
         add_shortcode('if_taxable', [$this, 'ifTaxableShortcode']);
         add_shortcode('unless_taxable', [$this, 'unlessTaxableShortcode']);
         add_shortcode('vat_rate', [$this, 'vatRateShortcode']);
+        add_shortcode('ip_country', [$this, 'ipCountryShortcode']);
 
         return $this;
     }
@@ -114,6 +115,17 @@ class Plugin
         ], $attributes);
 
         return (string) $this->vat_calculator->getTaxRateForLocation($attributes['country']) * 100;
+    }
+
+    /**
+     * Return the current user's country based on their IP address.
+     *
+     * @param  array  $attributes Attributes to the shortcode tag
+     * @return string
+     */
+    public function ipCountryShortcode($attributes = [])
+    {
+        return $this->vat_calculator->getIPBasedCountry();
     }
 
     /**
