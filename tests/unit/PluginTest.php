@@ -57,6 +57,8 @@ class PluginTest extends TestCase
             ->with('localize_currency', [$this->plugin, 'localizeCurrencyShortcode']);
         self::$functions->shouldReceive('add_shortcode')->once()
             ->with('if_taxable', [$this->plugin, 'ifTaxableShortcode']);
+        self::$functions->shouldReceive('add_shortcode')->once()
+            ->with('unless_taxable', [$this->plugin, 'unlessTaxableShortcode']);
 
         $this->plugin->registerShortcodes();
         $this->assertTrue(true);  // PHPUnit doesn't honor mock expectations as assertions
@@ -93,7 +95,7 @@ class PluginTest extends TestCase
         $this->assertEquals('17,85 €', $result);
     }
 
-    public function test_it_displays_body_vat_applicable()
+    public function test_if_taxable_displays_body_vat_applicable()
     {
         // Setup mocks
         $this->vat_calculator
@@ -109,7 +111,7 @@ class PluginTest extends TestCase
         $this->assertEquals('display me', $result);
     }
 
-    public function test_it_swallows_body_vat_not_applicable()
+    public function test_if_taxable_swallows_body_vat_not_applicable()
     {
         // Setup mocks
         $this->vat_calculator
@@ -122,6 +124,38 @@ class PluginTest extends TestCase
 
         // Perform the actual test
         $result = $this->plugin->ifTaxableShortcode([], 'dont display me');
+        $this->assertEquals('', $result);
+    }
+
+    public function test_unless_taxable_swallows_body_if_vat_applicable()
+    {
+        // Setup mocks
+        $this->vat_calculator
+            ->shouldReceive('getIPBasedCountry')->andReturn('something')
+            ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(false);
+        self::$functions->shouldReceive('shortcode_atts')
+            ->andReturn([
+                'country' => 'something'
+            ]);
+
+        // Perform the actual test
+        $result = $this->plugin->unlessTaxableShortcode([], 'display me');
+        $this->assertEquals('display me', $result);
+    }
+
+    public function test_unless_taxable_displays_body_if_no_vat_applicable()
+    {
+        // Setup mocks
+        $this->vat_calculator
+            ->shouldReceive('getIPBasedCountry')->andReturn('something')
+            ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(true);
+        self::$functions->shouldReceive('shortcode_atts')
+            ->andReturn([
+                'country' => 'something'
+            ]);
+
+        // Perform the actual test
+        $result = $this->plugin->unlessTaxableShortcode([], 'dont display me');
         $this->assertEquals('', $result);
     }
 }

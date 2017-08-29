@@ -33,6 +33,7 @@ class Plugin
     {
         add_shortcode('localize_currency', [$this, 'localizeCurrencyShortcode']);
         add_shortcode('if_taxable', [$this, 'ifTaxableShortcode']);
+        add_shortcode('unless_taxable', [$this, 'unlessTaxableShortcode']);
 
         return $this;
     }
@@ -62,7 +63,7 @@ class Plugin
     }
 
     /**
-     * Shortcode: Show body if VAT is applicable in given country.
+     * Shortcode: Show body if EU VAT is applicable in given country.
      *
      * @param  array  $attributes Attributes to the shortcode tag
      * @return string
@@ -78,6 +79,25 @@ class Plugin
         }
 
         return '';
+    }
+
+    /**
+     * Shortcode: Show body only if *no* EU VAT is applicable in given country.
+     *
+     * @param  array  $attributes Attributes to the shortcode tag
+     * @return string
+     */
+    public function unlessTaxableShortcode($attributes = [], string $body)
+    {
+        $attributes = shortcode_atts([
+            'country' => $this->vat_calculator->getIPBasedCountry(),
+        ], $attributes);
+
+        if ($this->vat_calculator->shouldCollectVat($attributes['country'])) {
+            return '';
+        }
+
+        return $body;
     }
 
     /**
