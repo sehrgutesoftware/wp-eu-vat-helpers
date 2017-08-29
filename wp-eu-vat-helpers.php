@@ -3,7 +3,7 @@
 Plugin Name:  WordPress EU VAT Helpers
 Plugin URI:   https://github.com/sehrgutesoftware/wp-eu-vat-helpers
 Description:  WordPress helper shortcodes to display prices including applicable VAT rate for the user's location (based on IP address)
-Version:      1.1.0
+Version:      1.1.1
 Author:       sehrgute.software
 Author URI:   https://sehrgute.software/
 License:      MIT License
