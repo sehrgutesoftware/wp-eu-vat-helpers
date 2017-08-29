@@ -1,6 +1,6 @@
 {
     "name": "sehrgut/wp-eu-vat-helpers",
-    "description": "A WordPress helper shortcode to display prices including applicable VAT rate for the user's location (based on IP address)",
+    "description": "WordPress helper shortcodes to display prices including applicable VAT rate for the user's location (based on IP address)",
     "type": "wordpress-plugin",
     "require": {
         "mpociot/vat-calculator": "~2.2.0"
