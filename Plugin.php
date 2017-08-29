@@ -2,6 +2,7 @@
 
 namespace SehrGut\WpPricesWithEuVat;
 
+use NumberFormatter;
 use Mpociot\VatCalculator\VatCalculator;
 
 class Plugin
@@ -30,7 +31,7 @@ class Plugin
      */
     public function registerShortcodes()
     {
-        add_shortcode('localize_price', [$this, 'localizePriceShortcode']);
+        add_shortcode('localize_currency', [$this, 'localizeCurrencyShortcode']);
 
         return $this;
     }
@@ -41,15 +42,32 @@ class Plugin
      * @param  array  $attributes Attributes to the shortcode tag
      * @return string
      */
-    public function localizePriceShortcode(array $attributes = [])
+    public function localizeCurrencyShortcode(array $attributes = [])
     {
-        if (!array_key_exists('value', $attributes)) {
+        $attributes = shortcode_atts([
+            'value' => null,
+            'country' => $this->vat_calculator->getIPBasedCountry(),
+            'currency' => 'EUR',
+        ], $attributes);
+
+        if (is_null($attributes['value'])) {
             return '';
         }
 
-        $country_code = 'DE';// $this->vat_calculator->getIPBasedCountry();
-        $gross = $this->vat_calculator->calculate($attributes['value'], $country_code);
+        $gross = $this->vat_calculator->calculate($attributes['value'], $attributes['country']);
+        $formatter = $this->makeFormatter($attributes['country']);
 
-        return number_format($gross, 2);
+        return $formatter->formatCurrency($gross, $attributes['currency']);
+    }
+
+    /**
+     * Return a NumberFormatter instance for given country.
+     *
+     * @param  string $country two-letter country code
+     * @return NumberFormatter
+     */
+    protected function makeFormatter(string $country)
+    {
+        return new NumberFormatter($country, NumberFormatter::CURRENCY);
     }
 }
