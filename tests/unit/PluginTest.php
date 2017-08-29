@@ -6,15 +6,18 @@ use Mockery;
 use Mpociot\VatCalculator\VatCalculator;
 use PHPUnit\Framework\TestCase;
 
-function add_shortcode(...$args) {
+function add_shortcode(...$args)
+{
     return PluginTest::$functions->add_shortcode(...$args);
 }
 
-function shortcode_atts(...$args) {
+function shortcode_atts(...$args)
+{
     return PluginTest::$functions->shortcode_atts(...$args);
 }
 
-function do_shortcode(...$args) {
+function do_shortcode(...$args)
+{
     return PluginTest::$functions->do_shortcode(...$args);
 }
 
@@ -28,7 +31,8 @@ class PluginTest extends TestCase
     public static $functions;
 
     /**
-     * Mock object for the VatCalculator
+     * Mock object for the VatCalculator.
+     *
      * @var VatCalculator
      */
     protected $vat_calculator;
@@ -92,9 +96,9 @@ class PluginTest extends TestCase
             ->shouldReceive('calculate')->with(15, 'DE')->andReturn(17.85);
         self::$functions->shouldReceive('shortcode_atts')
             ->andReturn([
-                'value' => 15,
+                'value'    => 15,
                 'currency' => 'EUR',
-                'country' => 'DE'
+                'country'  => 'DE',
             ]);
 
         // Perform the actual test
@@ -163,7 +167,7 @@ class PluginTest extends TestCase
             ->shouldReceive('getTaxRateForLocation')->with('DE')->andReturn(0.19);
         self::$functions->shouldReceive('shortcode_atts')
             ->andReturn([
-                'country' => 'DE'
+                'country' => 'DE',
             ]);
 
         // Perform the actual test

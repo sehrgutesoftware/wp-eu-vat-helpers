@@ -2,8 +2,8 @@
 
 namespace SehrGut\WpEuVatHelpers;
 
-use NumberFormatter;
 use Mpociot\VatCalculator\VatCalculator;
+use NumberFormatter;
 
 class Plugin
 {
@@ -51,14 +51,15 @@ class Plugin
     /**
      * Shortcode: Localize price based on user's IP address.
      *
-     * @param  array  $attributes Attributes to the shortcode tag
+     * @param array $attributes Attributes to the shortcode tag
+     *
      * @return string
      */
     public function localizeCurrencyShortcode($attributes = [])
     {
         $attributes = shortcode_atts([
-            'value' => null,
-            'country' => $this->ip_country,
+            'value'    => null,
+            'country'  => $this->ip_country,
             'currency' => 'EUR',
         ], $attributes);
 
@@ -75,10 +76,11 @@ class Plugin
     /**
      * Shortcode: Show body if EU VAT is applicable in given country.
      *
-     * @param  array  $attributes Attributes to the shortcode tag
+     * @param array $attributes Attributes to the shortcode tag
+     *
      * @return string
      */
-    public function ifTaxableShortcode($attributes = [], string $body)
+    public function ifTaxableShortcode($attributes, string $body)
     {
         $attributes = shortcode_atts([
             'country' => $this->ip_country,
@@ -94,10 +96,11 @@ class Plugin
     /**
      * Shortcode: Show body only if *no* EU VAT is applicable in given country.
      *
-     * @param  array  $attributes Attributes to the shortcode tag
+     * @param array $attributes Attributes to the shortcode tag
+     *
      * @return string
      */
-    public function unlessTaxableShortcode($attributes = [], string $body)
+    public function unlessTaxableShortcode($attributes, string $body)
     {
         $attributes = shortcode_atts([
             'country' => $this->ip_country,
@@ -113,7 +116,8 @@ class Plugin
     /**
      * Return the current VAT rate based on the user's country.
      *
-     * @param  array  $attributes Attributes to the shortcode tag
+     * @param array $attributes Attributes to the shortcode tag
+     *
      * @return string
      */
     public function vatRateShortcode($attributes = [])
@@ -128,7 +132,8 @@ class Plugin
     /**
      * Return the current user's country based on their IP address.
      *
-     * @param  array  $attributes Attributes to the shortcode tag
+     * @param array $attributes Attributes to the shortcode tag
+     *
      * @return string
      */
     public function ipCountryShortcode($attributes = [])
@@ -139,7 +144,8 @@ class Plugin
     /**
      * Return a NumberFormatter instance for given country.
      *
-     * @param  string $country two-letter country code
+     * @param string $country two-letter country code
+     *
      * @return NumberFormatter
      */
     protected function makeFormatter(string $country)
