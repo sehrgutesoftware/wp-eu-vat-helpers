@@ -2,7 +2,7 @@
 
 > WordPress helper shortcodes to display prices including applicable VAT rate for the user's location (based on IP address)
 
-[![Travis Build Status](https://img.shields.io/travis/sehrgutesoftware/wp-eu-vat-helpers/master.svg?style=flat-square)](https://travis-ci.org/sehrgutesoftware/wp-eu-vat-helpers)
+[![Travis Build Status](https://img.shields.io/travis/sehrgutesoftware/wp-eu-vat-helpers/master.svg?style=flat-square)](https://travis-ci.org/sehrgutesoftware/wp-eu-vat-helpers) [![Codecov](https://img.shields.io/codecov/c/github/sehrgutesoftware/wp-eu-vat-helpers.svg?style=flat-square)](https://codecov.io/gh/sehrgutesoftware/wp-eu-vat-helpers)
 
 This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calculator](https://github.com/mpociot/vat-calculator) library. Use at your own risk!
 
