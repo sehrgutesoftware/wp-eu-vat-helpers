@@ -1,0 +1,18 @@
+{
+    "name": "sehrgut/wp-prices-with-eu-vat",
+    "description": "A WordPress helper shortcode to display prices including applicable VAT rate for the user's location (based on IP address)",
+    "type": "wordpress-plugin",
+    "require": {
+        "mpociot/vat-calculator": "~2.2.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Joseph Paul",
+            "email": "joseph@sehrgute.software"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^6.3"
+    }
+}
