@@ -34,6 +34,7 @@ class Plugin
         add_shortcode('localize_currency', [$this, 'localizeCurrencyShortcode']);
         add_shortcode('if_taxable', [$this, 'ifTaxableShortcode']);
         add_shortcode('unless_taxable', [$this, 'unlessTaxableShortcode']);
+        add_shortcode('vat_rate', [$this, 'vatRateShortcode']);
 
         return $this;
     }
@@ -75,7 +76,7 @@ class Plugin
         ], $attributes);
 
         if ($this->vat_calculator->shouldCollectVat($attributes['country'])) {
-            return $body;
+            return do_shortcode($body);
         }
 
         return '';
@@ -97,7 +98,22 @@ class Plugin
             return '';
         }
 
-        return $body;
+        return do_shortcode($body);
+    }
+
+    /**
+     * Return the current VAT rate based on the user's country.
+     *
+     * @param  array  $attributes Attributes to the shortcode tag
+     * @return string
+     */
+    public function vatRateShortcode($attributes = [])
+    {
+        $attributes = shortcode_atts([
+            'country' => $this->vat_calculator->getIPBasedCountry(),
+        ], $attributes);
+
+        return (string) $this->vat_calculator->getTaxRateForLocation($attributes['country']) * 100;
     }
 
     /**

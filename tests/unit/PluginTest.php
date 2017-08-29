@@ -59,6 +59,8 @@ class PluginTest extends TestCase
             ->with('if_taxable', [$this->plugin, 'ifTaxableShortcode']);
         self::$functions->shouldReceive('add_shortcode')->once()
             ->with('unless_taxable', [$this->plugin, 'unlessTaxableShortcode']);
+        self::$functions->shouldReceive('add_shortcode')->once()
+            ->with('vat_rate', [$this->plugin, 'vatRateShortcode']);
 
         $this->plugin->registerShortcodes();
         $this->assertTrue(true);  // PHPUnit doesn't honor mock expectations as assertions
@@ -157,5 +159,21 @@ class PluginTest extends TestCase
         // Perform the actual test
         $result = $this->plugin->unlessTaxableShortcode([], 'dont display me');
         $this->assertEquals('', $result);
+    }
+
+    public function test_it_outputs_current_tax_rate()
+    {
+        // Setup mocks
+        $this->vat_calculator
+            ->shouldReceive('getIPBasedCountry')->andReturn('something')
+            ->shouldReceive('getTaxRateForLocation')->with('DE')->andReturn(0.19);
+        self::$functions->shouldReceive('shortcode_atts')
+            ->andReturn([
+                'country' => 'DE'
+            ]);
+
+        // Perform the actual test
+        $result = $this->plugin->vatRateShortcode();
+        $this->assertEquals('19', $result);
     }
 }
