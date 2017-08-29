@@ -47,8 +47,9 @@ class Plugin
             return '';
         }
 
-        $country_code = $this->vat_calculator->getIPBasedCountry();
+        $country_code = 'DE';// $this->vat_calculator->getIPBasedCountry();
+        $gross = $this->vat_calculator->calculate($attributes['value'], $country_code);
 
-        return $this->vat_calculator->calculate($attributes['value'], $country_code);
+        return number_format($gross, 2);
     }
 }
