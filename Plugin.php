@@ -1,5 +1,7 @@
 <?php
 
+namespace SehrGut\WpPricesWithEuVat;
+
 use Mpociot\VatCalculator\VatCalculator;
 
 class Plugin
