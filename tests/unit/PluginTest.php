@@ -38,6 +38,8 @@ class PluginTest extends TestCase
     {
         // Prepare mocks
         $this->vat_calculator = Mockery::mock(VatCalculator::class);
+        $this->vat_calculator->shouldReceive('getIPBasedCountry')->andReturn('something');
+
         self::$functions = Mockery::mock();
 
         // Instantiate the plugin
@@ -75,8 +77,6 @@ class PluginTest extends TestCase
     public function test_it_outputs_an_empty_string_if_no_value_is_given()
     {
         // Setup mocks
-        $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')->andReturn('DE');
         self::$functions->shouldReceive('shortcode_atts')
             ->andReturn(['value' => null]);
 
@@ -89,7 +89,6 @@ class PluginTest extends TestCase
     {
         // Setup mocks
         $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')
             ->shouldReceive('calculate')->with(15, 'DE')->andReturn(17.85);
         self::$functions->shouldReceive('shortcode_atts')
             ->andReturn([
@@ -107,7 +106,6 @@ class PluginTest extends TestCase
     {
         // Setup mocks
         $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(true);
         self::$functions
             ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something'])
@@ -122,7 +120,6 @@ class PluginTest extends TestCase
     {
         // Setup mocks
         $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(false);
         self::$functions
             ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something']);
@@ -136,7 +133,6 @@ class PluginTest extends TestCase
     {
         // Setup mocks
         $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(false);
         self::$functions
             ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something'])
@@ -151,7 +147,6 @@ class PluginTest extends TestCase
     {
         // Setup mocks
         $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('shouldCollectVAT')->with('something')->andReturn(true);
         self::$functions
             ->shouldReceive('shortcode_atts')->andReturn(['country' => 'something']);
@@ -165,7 +160,6 @@ class PluginTest extends TestCase
     {
         // Setup mocks
         $this->vat_calculator
-            ->shouldReceive('getIPBasedCountry')->andReturn('something')
             ->shouldReceive('getTaxRateForLocation')->with('DE')->andReturn(0.19);
         self::$functions->shouldReceive('shortcode_atts')
             ->andReturn([
@@ -179,9 +173,6 @@ class PluginTest extends TestCase
 
     public function test_it_outputs_current_country_based_on_ip()
     {
-        // Setup mocks
-        $this->vat_calculator->shouldReceive('getIPBasedCountry')->andReturn('something');
-
         // Perform the actual test
         $result = $this->plugin->ipCountryShortcode();
         $this->assertEquals('something', $result);

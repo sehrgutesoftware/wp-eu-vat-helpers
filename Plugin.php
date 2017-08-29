@@ -15,6 +15,13 @@ class Plugin
     protected $vat_calculator;
 
     /**
+     * Cached country code of the user based on their IP.
+     *
+     * @var string
+     */
+    protected $ip_country;
+
+    /**
      * Construct a new instance of the plugin.
      *
      * @param VatCalculator $vat_calculator
@@ -22,6 +29,7 @@ class Plugin
     public function __construct(VatCalculator $vat_calculator)
     {
         $this->vat_calculator = $vat_calculator;
+        $this->ip_country = $this->vat_calculator->getIPBasedCountry();
     }
 
     /**
@@ -50,7 +58,7 @@ class Plugin
     {
         $attributes = shortcode_atts([
             'value' => null,
-            'country' => $this->vat_calculator->getIPBasedCountry(),
+            'country' => $this->ip_country,
             'currency' => 'EUR',
         ], $attributes);
 
@@ -73,7 +81,7 @@ class Plugin
     public function ifTaxableShortcode($attributes = [], string $body)
     {
         $attributes = shortcode_atts([
-            'country' => $this->vat_calculator->getIPBasedCountry(),
+            'country' => $this->ip_country,
         ], $attributes);
 
         if ($this->vat_calculator->shouldCollectVat($attributes['country'])) {
@@ -92,7 +100,7 @@ class Plugin
     public function unlessTaxableShortcode($attributes = [], string $body)
     {
         $attributes = shortcode_atts([
-            'country' => $this->vat_calculator->getIPBasedCountry(),
+            'country' => $this->ip_country,
         ], $attributes);
 
         if ($this->vat_calculator->shouldCollectVat($attributes['country'])) {
@@ -111,7 +119,7 @@ class Plugin
     public function vatRateShortcode($attributes = [])
     {
         $attributes = shortcode_atts([
-            'country' => $this->vat_calculator->getIPBasedCountry(),
+            'country' => $this->ip_country,
         ], $attributes);
 
         return (string) $this->vat_calculator->getTaxRateForLocation($attributes['country']) * 100;
@@ -125,7 +133,7 @@ class Plugin
      */
     public function ipCountryShortcode($attributes = [])
     {
-        return $this->vat_calculator->getIPBasedCountry();
+        return $this->ip_country;
     }
 
     /**
