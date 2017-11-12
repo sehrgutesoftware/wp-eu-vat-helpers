@@ -117,6 +117,9 @@ if [ -f ".gitmodules" ]
 			done
 fi
 
+# Install composer dependencies
+composer install --no-dev -d "$SVNPATH/trunk/"
+
 # Support for the /assets folder on the .org repo.
 echo "Moving assets"
 # Make the directory if it doesn't already exist

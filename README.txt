@@ -2,8 +2,8 @@
 Contributors: jsphpl
 Tags: currency, localization, eu, vat, value added tax, ust, mehrwertsteuer, tax
 Requires at least: 4.8
-Tested up to: 4.8.1
-Stable tag: 1.1.1
+Tested up to: 4.9.0
+Stable tag: 1.1.2
 License: MIT
 License URI: https://github.com/sehrgutesoftware/wp-eu-vat-helpers/blob/master/LICENSE.md
 
@@ -56,6 +56,9 @@ e.g.
 == Screenshots ==
 
 == Changelog ==
+
+= 1.1.2 =
+* Fix critical bug to allow installation via wordpress.org ;)
 
 = 1.1.1 =
 * Fix performance related to geo-ip lookups
