@@ -28,8 +28,7 @@ install:
     fi
 
 script:
-  - phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
-  - phpunit --coverage-clover=coverage.xml
+  - phpunit
   - phpunit --config phpunit.integration.xml
 
 
