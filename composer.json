@@ -20,7 +20,7 @@
         "psr-4": { "SehrGut\\WpEuVatHelpers\\": "." }
     },
     "scripts": {
-        "unit": ["vendor/bin/phpunit --coverage-clover=coverage.xml"],
-        "integration": ["vendor/bin/phpunit --config phpunit.integration.xml --coverage-clover=coverage.xml"]
+        "unit": ["vendor/bin/phpunit"],
+        "integration": ["vendor/bin/phpunit --config phpunit.integration.xml"]
     }
 }
