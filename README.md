@@ -30,7 +30,7 @@ This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calcu
 
 ---
 
-#### `localize_currency`
+#### [localize_currency]
 
 > Add EU VAT to value and format the result as currency.
 
@@ -49,7 +49,7 @@ This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calcu
 
 ---
 
-#### `vat_rate`
+#### [vat_rate]
 
 > Display the EU VAT rate applicabe in the current user's country in percent.
 
@@ -66,7 +66,7 @@ This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calcu
 
 ---
 
-#### `ip_country`
+#### [ip_country]
 
 > Display the current user's country based on their IP address.
 
@@ -79,7 +79,7 @@ This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calcu
 
 ---
 
-#### `if_taxable`
+#### [if_taxable]
 
 > Condtitionally display a piece of content if EU VAT is applicable in the current user's country.
 
@@ -96,7 +96,7 @@ This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calcu
 
 ---
 
-#### `unless_taxable`
+#### [unless_taxable]
 
 > Condtitionally display a piece of content if EU VAT is *not* applicable in the current user's country. (Inverse of `if_taxable`)
 
@@ -110,6 +110,19 @@ This WordPress plugin is basically a wrapper around the nifty [mpociot/vat-calcu
 |----------------|----------|---------------|--------|
 | `country`      | optional | based on user's IP address | Override the country for which to check (two-letter [ISO-3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) code) |
 
+## Devlopment / Testing
+
+```bash
+# Install
+git clone git@github.com/sehrgutesoftware/wp-eu-vat-helpers.git
+cd wp-eu-vat-helpers
+composer install
+
+# Test
+composer unit
+composer integration
+```
+
 ## Support
 
 Please use [Github Issues](https://github.com/sehrgutesoftware/wp-eu-vat-helpers/issues) for Questions, Bug reports, Feature suggestions and everything else.
@@ -117,7 +130,6 @@ Please use [Github Issues](https://github.com/sehrgutesoftware/wp-eu-vat-helpers
 ## Compatibility
 
 This plugin was tested with WordPress 4.8.x and PHP 7.1 & 7.2
-
 
 ## License
 
