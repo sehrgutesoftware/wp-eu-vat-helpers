@@ -80,7 +80,7 @@ class Plugin
      *
      * @return string
      */
-    public function ifTaxableShortcode($attributes, string $body)
+    public function ifTaxableShortcode($attributes, $body)
     {
         $attributes = shortcode_atts([
             'country' => $this->ip_country,
@@ -100,7 +100,7 @@ class Plugin
      *
      * @return string
      */
-    public function unlessTaxableShortcode($attributes, string $body)
+    public function unlessTaxableShortcode($attributes, $body)
     {
         $attributes = shortcode_atts([
             'country' => $this->ip_country,
@@ -148,7 +148,7 @@ class Plugin
      *
      * @return NumberFormatter
      */
-    protected function makeFormatter(string $country)
+    protected function makeFormatter($country)
     {
         return new NumberFormatter($country, NumberFormatter::CURRENCY);
     }
